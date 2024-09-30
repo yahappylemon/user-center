@@ -1,17 +1,19 @@
 import { styled } from "@mui/material/styles";
-import MuiDrawer, { drawerClasses } from "@mui/material/Drawer";
+import Drawer from "@mui/material/Drawer";
 
 const drawerWidth = 240;
 
-const styledDrawer = styled(MuiDrawer)(({ theme }) => ({
+const styledDrawer = styled(Drawer)(({ theme }) => ({
   width: drawerWidth,
   flexShrink: 0,
   boxSizing: "border-box",
   mt: 10,
-  [`& .${drawerClasses.paper}`]: {
+  "& .MuiDrawer-paper": {
     width: drawerWidth,
     boxSizing: "border-box",
-    backgroundColor: theme.palette.primary.light,
+    [theme.breakpoints.up("md")]: {
+      backgroundColor: theme.palette.primary.light,
+    },
   },
 }));
 

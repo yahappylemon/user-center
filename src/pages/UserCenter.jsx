@@ -15,7 +15,6 @@ import { userInfoAPI, updateUserInfoAPI } from "../apis/user";
 import { hasLengthLimit, hasSameValue } from "../utils/formValidation";
 import { setTheme } from "../store/theme";
 import { palette } from "../utils/palette";
-import { alpha } from "@mui/material/styles";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

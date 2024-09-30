@@ -4,6 +4,9 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
+  Avatar,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,9 +16,10 @@ import {
   faUserPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@mui/material/styles";
-import { useDispatch } from "react-redux";
-import { clearUserInfo } from "../store/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsername, clearUserInfo } from "../store/auth";
 import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const mainListItems = [
   { text: "Home", route: "/", icon: faHouse },
@@ -35,12 +39,12 @@ const mainListItems = [
     icon: faUserPen,
   },
 ];
-export function Navbar() {
+export function Navbar({ children, ...props }) {
   const theme = useTheme();
   const location = useLocation();
   let currentPath = location.pathname;
   return (
-    <>
+    <Stack {...props}>
       {mainListItems.map((item) => (
         <ListItem key={item.text} disablePadding sx={{ display: "block" }}>
           <ListItemButton
@@ -55,8 +59,7 @@ export function Navbar() {
                 bgcolor: `${theme.palette.primary.dark}`,
               },
               borderRadius: "10px",
-              mt: 1,
-              mb: { xs: 1, md: 0 },
+              mt: { xs: 1, sm: 0, md: 1 },
             }}
           >
             <ListItemIcon sx={{ minWidth: "35px" }}>
@@ -71,7 +74,8 @@ export function Navbar() {
           </ListItemButton>
         </ListItem>
       ))}
-    </>
+      {children}
+    </Stack>
   );
 }
 
@@ -87,5 +91,40 @@ export function Logout({ ...props }) {
     >
       Logout
     </Button>
+  );
+}
+
+export function User({ display }) {
+  const username = useSelector((state) => state.auth.username);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsername());
+  }, [dispatch]);
+  return (
+    <Stack
+      direction="row"
+      sx={{
+        gap: 1,
+        alignItems: "center",
+        ...display,
+      }}
+    >
+      <Avatar
+        sizes="small"
+        sx={(theme) => ({
+          width: 36,
+          height: 36,
+          bgcolor: theme.palette.primary.main,
+        })}
+      />
+      <Typography
+        variant="body2"
+        sx={{ fontWeight: 500, lineHeight: "16px" }}
+        color="primary.contrastText"
+      >
+        {username}
+      </Typography>
+    </Stack>
   );
 }

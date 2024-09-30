@@ -1,4 +1,4 @@
-import AppNavbar from "../components/Appbar";
+import MobileSideMenu from "../components/MobileSideMenu";
 import SideMenu from "../components/SideMenu";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -8,7 +8,7 @@ export default function Layout() {
   return (
     <Box sx={{ display: "flex", height: "100%" }}>
       <SideMenu />
-      <AppNavbar />
+      <MobileSideMenu />
       {/* Main content */}
       <Box
         component="main"
