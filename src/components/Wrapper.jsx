@@ -4,6 +4,7 @@ export default function Wrapper({
   children,
   component,
   backgroundColor,
+  justifyContent,
   ...props
 }) {
   return (
@@ -11,11 +12,11 @@ export default function Wrapper({
       sx={(theme) => ({
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         minHeight: "100vh",
         backgroundColor: backgroundColor
           ? theme.palette.primary[backgroundColor]
           : "transparent",
+        justifyContent: justifyContent && "center",
       })}
       component={component}
       {...props}

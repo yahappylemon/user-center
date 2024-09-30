@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginAPI, userInfoAPI } from "../apis/user";
 import {
-  setToken as setToken_Local,
-  getToken,
+  setLocalStorage,
+  getLocalStorage,
   removeToken,
-} from "../utils/token";
+} from "../utils/localStorage";
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { token: getToken() || "", username: "" },
+  initialState: { token: getLocalStorage("token") || "", username: "" },
   reducers: {
     setToken(state, action) {
-      state.token = action.payload;
-      setToken_Local(action.payload);
+      state.token = action.payload.token;
+      setLocalStorage(action.payload.key, action.payload.token);
     },
     setUsername(state, action) {
       state.username = action.payload;
@@ -30,7 +30,7 @@ const { setToken, setUsername, clearUserInfo } = authSlice.actions;
 const fetchLogin = (loginform) => {
   return async (dispatch) => {
     const res = await loginAPI(loginform);
-    dispatch(setToken(res.data.data));
+    dispatch(setToken({ key: "token", token: res.data.data }));
   };
 };
 

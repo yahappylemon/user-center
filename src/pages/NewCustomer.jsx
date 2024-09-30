@@ -29,10 +29,10 @@ import {
 import { valueIsNull, valueIsEmail } from "../utils/formValidation";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { initialState } from "../utils/options";
 
 export default function NewCustomer() {
   const navigate = useNavigate();
-
   // 表單錯誤狀態管理
   const [emptyError, setEmptyError] = useState({
     customerName: false,
@@ -42,43 +42,26 @@ export default function NewCustomer() {
   const [emailError, setEmailError] = useState(false);
 
   // 表單預設值
-  const [formValue, setFormValue] = useState({
-    customerName: "",
-    birthYear: null,
-    gender: "",
-    phoneNumber: "",
-    email: "",
-    frequency: "",
-    regularExercises: [],
-    otherExercises: "",
-    approaches: [],
-    otherApproaches: "",
-    firstLesson: null,
-    lastLesson: null,
-    totalLessons: "",
-    remainingLessons: "",
-    medicalHistoryCategory: [],
-    medicalHistoryOther: "",
-    medicalHistoryBroken: "",
-    medicalHistorySurgery: "",
-    medication: "",
-    symptoms: "",
-    symptomCauses: "",
-    transportationCategory: [],
-  });
+  const [formValue, setFormValue] = useState(initialState);
 
   // 從url的查詢參數，獲取當前客戶名稱
   const [searchParams] = useSearchParams();
   const [currentCustomer, setCurrentCustomer] = useState(
-    searchParams.get("customerName")
+    searchParams.get("id")
   );
+  // 有客戶(edit模式)=>沒客戶(再次點擊newCustomer)，重新獲取查詢參數、清空表單
+  useEffect(() => {
+    const id = searchParams.get("id");
+    setCurrentCustomer(id);
+    id === null && setFormValue(initialState);
+  }, [searchParams]);
 
   // 若有當前客戶(edit模式)，向後端請求當前客戶資訊、更新表單預設值
   useEffect(() => {
     async function getCurrentCustomerInfo() {
       try {
         const res = await getSingleCustomerAPI({
-          customerName: currentCustomer,
+          id: currentCustomer,
         });
         const customerData = res.data.data;
         setFormValue({
@@ -95,10 +78,10 @@ export default function NewCustomer() {
               : null,
         });
       } catch (error) {
-        if (error.response.status === 404) {
-          setCurrentCustomer(null);
-        }
-        if (error.response.status === 500) {
+        if (
+          error?.response?.status === 404 ||
+          error?.response?.status === 500
+        ) {
           setCurrentCustomer(null);
         }
       }

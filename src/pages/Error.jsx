@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Error() {
   return (
-    <Wrapper backgroundColor="light">
+    <Wrapper component="main" backgroundColor="light" justifyContent>
       <Typography component="h1" variant="h1" align="center">
         OH NO!
       </Typography>

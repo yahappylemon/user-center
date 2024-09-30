@@ -22,3 +22,11 @@ export function userInfoAPI() {
     method: "GET",
   });
 }
+
+export function updateUserInfoAPI(userInfo) {
+  return request({
+    url: "/user",
+    method: "PUT",
+    data: userInfo,
+  });
+}

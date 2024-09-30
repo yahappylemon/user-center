@@ -1,8 +1,8 @@
-import { getToken } from "../utils/token";
+import { getLocalStorage } from "../utils/localStorage";
 import { Navigate } from "react-router-dom";
 
 export default function AuthRoute({ children }) {
-  const token = getToken();
+  const token = getLocalStorage("token");
   if (token) {
     return <>{children}</>;
   } else {

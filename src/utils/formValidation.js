@@ -33,3 +33,9 @@ export function confirmPassword(value1, value2) {
     return "Password didn't match";
   }
 }
+
+export function hasSameValue(value1, value2) {
+  if (value1 === value2) {
+    return "Please enter a different value";
+  }
+}

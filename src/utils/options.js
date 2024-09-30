@@ -7,6 +7,31 @@ export const tableHead = [
   "First Lesson",
 ];
 
+export const initialState = {
+  customerName: "",
+  birthYear: null,
+  gender: "",
+  phoneNumber: "",
+  email: "",
+  frequency: "",
+  regularExercises: [],
+  otherExercises: "",
+  approaches: [],
+  otherApproaches: "",
+  firstLesson: null,
+  lastLesson: null,
+  totalLessons: "",
+  remainingLessons: "",
+  medicalHistoryCategory: [],
+  medicalHistoryOther: "",
+  medicalHistoryBroken: "",
+  medicalHistorySurgery: "",
+  medication: "",
+  symptoms: "",
+  symptomCauses: "",
+  transportationCategory: [],
+};
+
 export const exercisesOptions = [
   "Yoga",
   "Jogging",

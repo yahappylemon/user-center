@@ -10,11 +10,11 @@ export function getCustomerAPI(params) {
 }
 
 // 查詢個別客戶
-export function getSingleCustomerAPI(customerName) {
+export function getSingleCustomerAPI(id) {
   return request({
-    url: "/customer/userByName",
-    method: "POST",
-    data: customerName,
+    url: "/customer/userById",
+    method: "GET",
+    params: id,
   });
 }
 

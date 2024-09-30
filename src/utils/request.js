@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken, removeToken } from "./token";
+import { getLocalStorage, removeToken } from "./localStorage.js";
 import router from "../router/index.jsx";
 
 const request = axios.create({
@@ -11,10 +11,10 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     // add token before request is sent
-    const token = getToken();
+    const token = getLocalStorage("token");
     if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (config) => {

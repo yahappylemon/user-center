@@ -19,12 +19,10 @@ import {
 import { useState } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { useTheme } from "@mui/material/styles";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const theme = useTheme();
 
   // 表單錯誤狀態管理
   const [error, setError] = useState({
@@ -149,7 +147,15 @@ export default function Login() {
 
   return (
     <Wrapper component="main" backgroundColor="light">
-      <LoginCard variant="outlined" sx={{ width: "100%", maxWidth: "450px" }}>
+      <LoginCard
+        variant="outlined"
+        sx={{
+          width: "100%",
+          maxWidth: "450px",
+          margin: { xs: "auto", sm: "auto" },
+          minHeight: { xs: "auto", sm: "auto", md: "auto" },
+        }}
+      >
         <Typography variant="h4" component="h1" textAlign={"center"}>
           {isLogin ? "Login" : "Create New User"}
         </Typography>

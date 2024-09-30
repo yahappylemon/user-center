@@ -5,8 +5,10 @@ import NewCard from "../components/styledCard";
 import { Typography, CircularProgress, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { PieChart, BarChart, LineChart } from "@mui/x-charts";
+import { useTheme } from "@mui/material/styles";
 
 export default function Home() {
+  const theme = useTheme();
   const [gender, setGender] = useState();
   const [approach, setApproach] = useState();
   const [firstLesson, setFirstLesson] = useState();
@@ -47,15 +49,29 @@ export default function Home() {
                     series={[
                       {
                         data: [
-                          { id: 0, value: gender?.[0], label: "Female" },
-                          { id: 1, value: gender?.[1], label: "Male" },
+                          {
+                            id: 0,
+                            value: gender?.[0],
+                            label: "Female",
+                            color: `${theme.palette.secondary.light}`,
+                          },
+                          {
+                            id: 1,
+                            value: gender?.[1],
+                            label: "Male",
+                            color: `${theme.palette.secondary.dark}`,
+                          },
                         ],
                       },
                     ]}
                     width={350}
                     height={200}
                   />
-                  <Typography component="p" variant="subtitle2">
+                  <Typography
+                    component="p"
+                    variant="subtitle2"
+                    color="primary.contrastText"
+                  >
                     Customer Gender Statistics
                   </Typography>
                 </>
@@ -76,26 +92,42 @@ export default function Home() {
               ) : (
                 <>
                   <BarChart
-                    yAxis={[{ scaleType: "band", data: [""] }]}
+                    yAxis={[
+                      {
+                        scaleType: "band",
+                        data: [""],
+                      },
+                    ]}
                     series={[
                       {
                         id: 0,
                         data: [approach["網路社群"]],
                         label: "Social media",
+                        color: `${theme.palette.secondary.light}`,
                       },
                       {
                         id: 1,
                         data: [approach["親友介紹"]],
                         label: "Referral by friend/family",
+                        color: `${theme.palette.secondary.dark}`,
                       },
-                      { id: 2, data: [approach["其他"]], label: "Other" },
+                      {
+                        id: 2,
+                        data: [approach["其他"]],
+                        label: "Other",
+                        color: `${theme.palette.secondary.contrastText}`,
+                      },
                     ]}
                     layout="horizontal"
                     grid={{ vertical: true }}
                     width={450}
                     height={200}
                   />
-                  <Typography component="p" variant="subtitle2">
+                  <Typography
+                    component="p"
+                    variant="subtitle2"
+                    color="primary.contrastText"
+                  >
                     Customer Approaches Statistics
                   </Typography>
                 </>
@@ -122,10 +154,12 @@ export default function Home() {
                       {
                         data: firstLesson[2023],
                         label: "2023",
+                        color: `${theme.palette.secondary.light}`,
                       },
                       {
                         data: firstLesson[2024],
                         label: "2024",
+                        color: `${theme.palette.secondary.dark}`,
                       },
                     ]}
                     xAxis={[
@@ -135,7 +169,11 @@ export default function Home() {
                       },
                     ]}
                   />
-                  <Typography component="p" variant="subtitle2">
+                  <Typography
+                    component="p"
+                    variant="subtitle2"
+                    color="primary.contrastText"
+                  >
                     Customer First Lesson Statistics
                   </Typography>
                 </>

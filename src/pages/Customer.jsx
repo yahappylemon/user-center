@@ -17,6 +17,12 @@ import {
 } from "@mui/material";
 import NewCard from "../components/styledCard";
 import Wrapper from "../components/Wrapper";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faPen,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { tableHead } from "../utils/options";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
@@ -102,12 +108,12 @@ export default function Customer() {
                 input: {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <i
-                        className="fa-solid fa-magnifying-glass"
+                      <FontAwesomeIcon
+                        icon={faMagnifyingGlass}
                         style={{
                           color: `${theme.palette.primary.contrastText}`,
                         }}
-                      ></i>
+                      />
                     </InputAdornment>
                   ),
                 },
@@ -127,9 +133,10 @@ export default function Customer() {
                     {tableHead.map((head) => (
                       <TableCell
                         align={"center"}
-                        sx={{
-                          color: (theme) => theme.palette.primary.contrastText,
-                        }}
+                        sx={(theme) => ({
+                          color: theme.palette.primary.contrastText,
+                        })}
+                        key={head}
                       >
                         {head}
                       </TableCell>
@@ -158,18 +165,18 @@ export default function Customer() {
                         <TableCell align={"center"} sx={{ p: "0" }}>
                           <IconButton
                             component={Link}
-                            to={`/newCustomer?customerName=${customer.customerName}`}
-                            data-name={customer.customerName}
+                            to={`/newCustomer?id=${customer.id}`}
+                            data-id={customer.id}
                             aria-label="edit"
                             size="small"
                             sx={{ mr: 2 }}
                           >
-                            <i
-                              className="fa-solid fa-pen"
+                            <FontAwesomeIcon
+                              icon={faPen}
                               style={{
                                 color: `${theme.palette.primary.contrastText}`,
                               }}
-                            ></i>
+                            />
                           </IconButton>
                           <IconButton
                             data-id={customer.id}
@@ -177,12 +184,12 @@ export default function Customer() {
                             size="small"
                             onClick={handleDelete}
                           >
-                            <i
-                              className="fa-solid fa-trash"
+                            <FontAwesomeIcon
+                              icon={faTrash}
                               style={{
                                 color: `${theme.palette.primary.contrastText}`,
                               }}
-                            ></i>
+                            />
                           </IconButton>
                         </TableCell>
                         <TableCell align={"center"}>

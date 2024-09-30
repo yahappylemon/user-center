@@ -1,9 +1,8 @@
 import { styled } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Stack from "@mui/material/Stack";
+import { AppBar, Stack } from "@mui/material";
 import MuiToolbar from "@mui/material/Toolbar";
 import { tabsClasses } from "@mui/material/Tabs";
-import Typography from "@mui/material/Typography";
+import { Navbar, Logout } from "./Navbar";
 
 const Toolbar = styled(MuiToolbar)({
   width: "100%",
@@ -29,30 +28,33 @@ export default function AppNavbar() {
         display: { xs: "auto", md: "none" },
         boxShadow: 0,
         bgcolor: "background.paper",
-        backgroundImage: "none",
         borderBottom: "1px solid",
         borderColor: "divider",
         top: "var(--template-frame-height, 0px)",
       }}
     >
-      <Toolbar variant="regular">
+      <Toolbar
+        variant="regular"
+        sx={{
+          py: 0,
+        }}
+      >
         <Stack
           direction="row"
           sx={{
-            justifyContent: "space-between",
+            justifyContent: "center",
             alignItems: "center",
             flexGrow: 1,
             width: "100%",
           }}
         >
-          <Stack direction="row" spacing={1} sx={{ justifyContent: "center" }}>
-            <Typography
-              variant="h4"
-              component="h1"
-              sx={{ color: "text.primary" }}
-            >
-              Dashboard
-            </Typography>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ justifyContent: "center", alignItems: "center" }}
+          >
+            <Navbar />
+            <Logout fullWidth />
           </Stack>
         </Stack>
       </Toolbar>
