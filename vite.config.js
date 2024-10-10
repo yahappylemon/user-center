@@ -15,6 +15,11 @@ export default defineConfig(({ command }) => {
     },
     define: {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      // "process.env.API_URL": JSON.stringify(
+      //   process.env.NODE_ENV === "production"
+      //     ? "https://your-secure-api.com"
+      //     : "http://localhost:3000"
+      // ),
     },
   };
 });

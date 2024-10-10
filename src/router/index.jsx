@@ -12,75 +12,80 @@ const Customer = lazy(() => import("../pages/Customer"));
 const NewCustomer = lazy(() => import("../pages/NewCustomer"));
 const UserCenter = lazy(() => import("../pages/UserCenter"));
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: (
+        <AuthRoute>
+          <Layout />
+        </AuthRoute>
+      ),
+      errorElement: <Error></Error>,
+      children: [
+        {
+          index: true,
+          element: (
+            <Suspense
+              fallback={
+                <Box sx={{ width: "100%", mt: 8 }}>
+                  <LinearProgress />
+                </Box>
+              }
+            >
+              <Home />
+            </Suspense>
+          ),
+        },
+        {
+          path: "customer",
+          element: (
+            <Suspense
+              fallback={
+                <Box sx={{ width: "100%", mt: 8 }}>
+                  <LinearProgress />
+                </Box>
+              }
+            >
+              <Customer />
+            </Suspense>
+          ),
+        },
+        {
+          path: "newCustomer",
+          element: (
+            <Suspense
+              fallback={
+                <Box sx={{ width: "100%", mt: 8 }}>
+                  <LinearProgress />
+                </Box>
+              }
+            >
+              <NewCustomer />
+            </Suspense>
+          ),
+        },
+        {
+          path: "userCenter",
+          element: (
+            <Suspense
+              fallback={
+                <Box sx={{ width: "100%", mt: 8 }}>
+                  <LinearProgress />
+                </Box>
+              }
+            >
+              <UserCenter />
+            </Suspense>
+          ),
+        },
+      ],
+    },
+    { path: "/auth", element: <Login /> },
+  ],
   {
-    path: "/",
-    element: (
-      <AuthRoute>
-        <Layout />
-      </AuthRoute>
-    ),
-    errorElement: <Error></Error>,
-    children: [
-      {
-        index: true,
-        element: (
-          <Suspense
-            fallback={
-              <Box sx={{ width: "100%", mt: 8 }}>
-                <LinearProgress />
-              </Box>
-            }
-          >
-            <Home />
-          </Suspense>
-        ),
-      },
-      {
-        path: "customer",
-        element: (
-          <Suspense
-            fallback={
-              <Box sx={{ width: "100%", mt: 8 }}>
-                <LinearProgress />
-              </Box>
-            }
-          >
-            <Customer />
-          </Suspense>
-        ),
-      },
-      {
-        path: "newCustomer",
-        element: (
-          <Suspense
-            fallback={
-              <Box sx={{ width: "100%", mt: 8 }}>
-                <LinearProgress />
-              </Box>
-            }
-          >
-            <NewCustomer />
-          </Suspense>
-        ),
-      },
-      {
-        path: "userCenter",
-        element: (
-          <Suspense
-            fallback={
-              <Box sx={{ width: "100%", mt: 8 }}>
-                <LinearProgress />
-              </Box>
-            }
-          >
-            <UserCenter />
-          </Suspense>
-        ),
-      },
-    ],
-  },
-  { path: "/auth", element: <Login /> },
-]);
+    basename: import.meta.env.BASE_URL,
+  }
+);
 
 export default router;
