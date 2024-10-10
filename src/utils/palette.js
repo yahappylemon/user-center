@@ -12,7 +12,7 @@ import {
 export const palette = {
   lemon: {
     primary: {
-      main: alpha(yellow[300], 0.7),
+      main: yellow[300],
       light: alpha(yellow[50], 0.8),
       dark: yellow["A700"],
       contrastText: alpha(green[900], 0.7),

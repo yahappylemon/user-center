@@ -1,3 +1,4 @@
+// customer組件
 export const tableHead = [
   "Edit/Delete",
   "Name",
@@ -7,6 +8,7 @@ export const tableHead = [
   "First Lesson",
 ];
 
+// NewCustomer組件
 export const initialState = {
   customerName: "",
   birthYear: null,

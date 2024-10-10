@@ -1,8 +1,8 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./router/index";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { GlobalStyles } from "@mui/material";
+import { ThemeProvider, createTheme, useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import "../src/style.css";
 import { useSelector } from "react-redux";
 import { palette } from "../src/utils/palette";
 import { useMemo } from "react";
@@ -23,6 +23,25 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
+      <GlobalStyles
+        styles={{
+          [`body::-webkit-scrollbar, #root ::-webkit-scrollbar`]: {
+            width: "10px",
+          },
+          [`body::-webkit-scrollbar-track, #root ::-webkit-scrollbar-track`]: {
+            background: theme.palette.secondary.main,
+            borderRadius: "5px",
+          },
+          [`body::-webkit-scrollbar-thumb, #root ::-webkit-scrollbar-thumb`]: {
+            background: theme.palette.primary.main,
+            borderRadius: "5px",
+          },
+          [`body::-webkit-scrollbar-thumb:hover, #root ::-webkit-scrollbar-thumb:hover`]:
+            {
+              background: theme.palette.primary.dark,
+            },
+        }}
+      />
       <RouterProvider router={router} />
     </ThemeProvider>
   );

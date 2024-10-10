@@ -47,25 +47,30 @@ export default function Customer() {
     setTotal(res.data.data.total);
   }
 
+  // 獲取當前客戶列表
   useEffect(() => {
     fetchCustomer();
   }, [page, name]);
 
+  //依據頁碼更新當前客戶列表
   function handlePage(e, value) {
     setPage(value);
   }
 
+  // 依據客戶名稱更新當前客戶列表
   function handleSearch(name) {
     setName(name);
     setPage(1);
   }
 
+  // 刪除用戶資料
   async function handleDelete(e) {
     const id = e.currentTarget.dataset.id;
     await deleteCustomerAPI({ id });
     await fetchCustomer();
   }
 
+  // 篩濾用戶運動習慣資訊
   function filterArrays(arr) {
     if (!arr) {
       return null;
@@ -91,6 +96,7 @@ export default function Customer() {
           <Typography variant="h5" component="h1">
             Customer
           </Typography>
+          {/* 搜尋框 */}
           <Box
             sx={{
               display: "flex",
@@ -121,6 +127,7 @@ export default function Customer() {
             ></TextField>
             {name && <Button onClick={() => handleSearch("")}>Clear</Button>}
           </Box>
+          {/* 用戶資訊列表 */}
         </Box>
         {!list ? (
           <CircularProgress sx={{ alignSelf: "center" }} />
@@ -217,6 +224,7 @@ export default function Customer() {
                 </TableBody>
               </Table>
             </TableContainer>
+            {/* 頁碼 */}
             <Pagination
               count={Math.ceil(total / 7)}
               page={page}

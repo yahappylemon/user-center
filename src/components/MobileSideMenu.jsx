@@ -15,7 +15,18 @@ export default function MobileSideMenu() {
 
   return (
     <Box sx={{ display: { xs: "flex", md: "none" } }}>
-      <AppBar component="nav" sx={{ py: { xs: 1, sm: 0 } }}>
+      <AppBar
+        component="nav"
+        sx={{
+          py: 1.5,
+          "@media (max-width:483px)": {
+            py: 1,
+          },
+          "@media (min-width:600px)": {
+            py: 0,
+          },
+        }}
+      >
         <Toolbar
           direction="row"
           sx={{
@@ -23,12 +34,15 @@ export default function MobileSideMenu() {
             alignItems: "center",
             flexGrow: 1,
             width: "100%",
-            justifyContent: { xs: "space-between", sm: "center" },
+            justifyContent: "space-between",
+            "@media (min-width:701px)": {
+              justifyContent: "center",
+            },
           }}
         >
           <IconButton
             onClick={handleNavBarOpen}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, "@media (min-width:701px)": { display: "none" } }}
           >
             <FontAwesomeIcon
               icon={faBars}
@@ -37,21 +51,27 @@ export default function MobileSideMenu() {
               }}
             />
           </IconButton>
-          {/* sm大小導覽列 */}
+          {/* > 700px 導覽列 */}
           <Navbar
             direction="row"
             spacing={2}
             sx={{
               justifyContent: "center",
               alignItems: "center",
-              display: { xs: "none", sm: "flex" },
+              display: "none",
+              "@media (min-width:701px)": {
+                display: "flex",
+              },
             }}
           >
             <Logout
               fullWidth
               variant="contained"
               sx={{
-                display: { xs: "none", sm: "flex" },
+                display: "none",
+                "@media (min-width:701px)": {
+                  display: "flex",
+                },
                 bgcolor: theme.palette.primary.dark,
                 color: theme.palette.secondary.dark,
                 "&:hover": {
@@ -60,16 +80,22 @@ export default function MobileSideMenu() {
               }}
             />
           </Navbar>
-          {/* xs大小導覽列 */}
+          {/* < 700px導覽列 */}
           <Stack direction="row" gap={2}>
             <User
               display={{
-                display: { xs: "flex", sm: "none" },
+                display: "none",
+                "@media (max-width:700px)": {
+                  display: "flex",
+                },
               }}
             />
             <Logout
               sx={{
-                display: { xs: "flex", sm: "none" },
+                display: "none",
+                "@media (max-width:700px)": {
+                  display: "flex",
+                },
                 bgcolor: theme.palette.primary.dark,
                 color: theme.palette.secondary.dark,
                 "&:hover": {
@@ -89,7 +115,10 @@ export default function MobileSideMenu() {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: "none",
+            "@media (max-width:700px)": {
+              display: "flex",
+            },
           }}
         >
           <Box onClick={handleNavBarOpen} sx={{ textAlign: "center" }}>
