@@ -17,8 +17,8 @@ export default defineConfig(({ command }) => {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
       // "process.env.API_URL": JSON.stringify(
       //   process.env.NODE_ENV === "production"
-      //     ? "https://your-secure-api.com"
-      //     : "http://localhost:3000"
+      //     ? "https://13.208.246.69.nip.io"
+      //     : "http://13.208.246.69/"
       // ),
     },
   };
