@@ -38,7 +38,7 @@ export default function UserCenter() {
   useEffect(() => {
     async function getCurrentUserInfo() {
       const res = await userInfoAPI();
-      console.log(res.data);
+      // console.log(res.data);
       setFormValue(res.data.data);
     }
     getCurrentUserInfo();

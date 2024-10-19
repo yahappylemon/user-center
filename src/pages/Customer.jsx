@@ -42,7 +42,7 @@ export default function Customer() {
       pageSize: 7,
       customerName: name,
     });
-    console.log(res.data.data);
+    // console.log(res.data.data);
     setList(res.data.data.items);
     setTotal(res.data.data.total);
   }
