@@ -1,8 +1,54 @@
-# React + Vite
+# Customer Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 簡介
 
-Currently, two official plugins are available:
+<div align=center><img src="./public/user center.png" width="400px"/></div>
+</br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+這是一個專為**小型健身工作室**設計的**客戶管理系統**，主要提供**用戶註冊與登入**、**客戶資料管理**、**數據統計分析**功能，幫助工作室經營者快速掌握客戶資料。
+另支援**行動版**及**三種主題外觀**，滿足個人化需求。
+**登入後即可體驗完整功能**，歡迎點擊下方連結，使用測試帳號或註冊新帳號登入!
+
+:point_right: [Here's the Link](https://yahappylemon.github.io/user-center/auth?mode=login)
+
+#### 測試帳號
+
+- **用戶名**：AAA
+- **密碼**: 1qaz2wsx
+
+#### 註冊新用戶
+
+- **用戶名**：長度必須介在 3~20 個字
+- **密碼**：長度 8 個字以上，包含數字及英文
+
+## 功能
+
+- **用戶管理（系統使用者）**：提供註冊、登入、修改用戶名稱功能。
+- **客戶管理**：提供用戶新增、編輯、刪除及查詢客戶資料功能，確保客戶資訊的完整與即時性。
+- **數據統計**
+  - **客戶性別比例**：圓餅圖顯示客戶性別分佈，讓業主掌握客戶結構、提供針對性服務。
+  - **客戶來源統計**：長條圖顯示三種客戶來源比例（親友介紹、網路媒體、其他途徑），提供業主拓展客源依據。
+  - **每月客戶增長**：折線圖顯示每月新增客戶數，幫助業主了解客戶成長趨勢，進行業務規劃。
+- **主題色切換**：提供用戶三種主題外觀，讓使用者根據個人喜好選擇最佳體驗。
+- **響應式網頁設計（RWD）**：支援不同裝置的自適應顯示，電腦、平板及行動裝置都能流暢使用。
+
+## 技術
+
+### 前端技術
+
+- **React**：以 React 框架進行開發，提升元件的靈活性與複用性。
+- **React Router**：以 React Router 設定路由，方便路由切換及管理。
+- **Redux**：以 Redux 進行全局狀態管理，確保邏輯清晰、維護更便利。
+- **Axios**：用於 API 請求，實現前後端資料高效交換。
+- **MUI**：使用 MUI 的 UI 庫，提供實用、美觀的使用者介面。
+
+### 後端技術
+
+- **Spring Boot**：用於構建健壯且可擴展的後端服務。
+- **MySQL**：做為存儲、管理客戶資料的資料庫管理系統。
+- **MyBatis**：負責資料庫與應用程式的 ORM 交互。
+
+### 擴展規劃
+
+- **前端**：優化性能、加入測試。
+- **後端**：提升安全性，使系統更穩定、高效。
