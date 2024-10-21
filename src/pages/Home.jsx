@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { getCustomerStatisticsAPI } from "../apis/customer";
 import Wrapper from "../components/Wrapper";
 import NewCard from "../components/styledCard";
-import { Typography, CircularProgress, Box } from "@mui/material";
+import {
+  Typography,
+  CircularProgress,
+  Box,
+  useMediaQuery,
+} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { PieChart, BarChart, LineChart } from "@mui/x-charts";
 import { useTheme } from "@mui/material/styles";
@@ -12,6 +17,7 @@ export default function Home() {
   const [gender, setGender] = useState();
   const [approach, setApproach] = useState();
   const [firstLesson, setFirstLesson] = useState();
+  const isSmallScreen = useMediaQuery(`(max-width:${500}px)`);
 
   // 獲取統計數據
   useEffect(() => {
@@ -45,28 +51,42 @@ export default function Home() {
                 <CircularProgress sx={{ alignSelf: "center" }} />
               ) : (
                 <>
-                  <PieChart
-                    series={[
-                      {
-                        data: [
-                          {
-                            id: 0,
-                            value: gender?.[0],
-                            label: "Female",
-                            color: `${theme.palette.secondary.light}`,
+                  <Box
+                    sx={{
+                      width: { xs: "100%", sm: 500 },
+                    }}
+                  >
+                    <PieChart
+                      series={[
+                        {
+                          data: [
+                            {
+                              id: 0,
+                              value: gender?.[0],
+                              label: "Female",
+                              color: `${theme.palette.secondary.light}`,
+                            },
+                            {
+                              id: 1,
+                              value: gender?.[1],
+                              label: "Male",
+                              color: `${theme.palette.secondary.dark}`,
+                            },
+                          ],
+                        },
+                      ]}
+                      slotProps={{
+                        legend: {
+                          labelStyle: {
+                            fontSize: isSmallScreen ? 10 : 16,
                           },
-                          {
-                            id: 1,
-                            value: gender?.[1],
-                            label: "Male",
-                            color: `${theme.palette.secondary.dark}`,
-                          },
-                        ],
-                      },
-                    ]}
-                    width={350}
-                    height={200}
-                  />
+                          itemMarkWidth: isSmallScreen ? 10 : 20,
+                          itemMarkHeight: isSmallScreen ? 10 : 20,
+                        },
+                      }}
+                      height={200}
+                    />
+                  </Box>
                   <Typography
                     component="p"
                     variant="subtitle2"
@@ -91,38 +111,53 @@ export default function Home() {
                 <CircularProgress sx={{ alignSelf: "center" }} />
               ) : (
                 <>
-                  <BarChart
-                    yAxis={[
-                      {
-                        scaleType: "band",
-                        data: [""],
-                      },
-                    ]}
-                    series={[
-                      {
-                        id: 0,
-                        data: [approach["網路社群"]],
-                        label: "Social media",
-                        color: `${theme.palette.secondary.light}`,
-                      },
-                      {
-                        id: 1,
-                        data: [approach["親友介紹"]],
-                        label: "Referral by friend/family",
-                        color: `${theme.palette.secondary.dark}`,
-                      },
-                      {
-                        id: 2,
-                        data: [approach["其他"]],
-                        label: "Other",
-                        color: `${theme.palette.secondary.contrastText}`,
-                      },
-                    ]}
-                    layout="horizontal"
-                    grid={{ vertical: true }}
-                    width={450}
-                    height={200}
-                  />
+                  <Box
+                    sx={{
+                      width: { xs: "100%", sm: 450 },
+                    }}
+                  >
+                    <BarChart
+                      yAxis={[
+                        {
+                          scaleType: "band",
+                          data: [""],
+                        },
+                      ]}
+                      series={[
+                        {
+                          id: 0,
+                          data: [approach["網路社群"]],
+                          label: "Social media",
+                          color: `${theme.palette.secondary.light}`,
+                        },
+                        {
+                          id: 1,
+                          data: [approach["親友介紹"]],
+                          label: "Referral by friend/family",
+                          color: `${theme.palette.secondary.dark}`,
+                        },
+                        {
+                          id: 2,
+                          data: [approach["其他"]],
+                          label: "Other",
+                          color: `${theme.palette.secondary.contrastText}`,
+                        },
+                      ]}
+                      layout="horizontal"
+                      grid={{ vertical: true }}
+                      slotProps={{
+                        legend: {
+                          labelStyle: {
+                            fontSize: isSmallScreen ? 10 : 16,
+                          },
+                          itemMarkWidth: isSmallScreen ? 10 : 20,
+                          itemMarkHeight: isSmallScreen ? 10 : 20,
+                          padding: isSmallScreen ? -5 : 0,
+                        },
+                      }}
+                      height={200}
+                    />
+                  </Box>
                   <Typography
                     component="p"
                     variant="subtitle2"
@@ -147,28 +182,42 @@ export default function Home() {
                 <CircularProgress sx={{ alignSelf: "center" }} />
               ) : (
                 <>
-                  <LineChart
-                    width={500}
-                    height={250}
-                    series={[
-                      {
-                        data: firstLesson[2023],
-                        label: "2023",
-                        color: `${theme.palette.secondary.light}`,
-                      },
-                      {
-                        data: firstLesson[2024],
-                        label: "2024",
-                        color: `${theme.palette.secondary.dark}`,
-                      },
-                    ]}
-                    xAxis={[
-                      {
-                        scaleType: "point",
-                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                      },
-                    ]}
-                  />
+                  <Box
+                    sx={{
+                      width: { xs: "100%", sm: 500 },
+                    }}
+                  >
+                    <LineChart
+                      height={250}
+                      series={[
+                        {
+                          data: firstLesson[2023],
+                          label: "2023",
+                          color: `${theme.palette.secondary.light}`,
+                        },
+                        {
+                          data: firstLesson[2024],
+                          label: "2024",
+                          color: `${theme.palette.secondary.dark}`,
+                        },
+                      ]}
+                      xAxis={[
+                        {
+                          scaleType: "point",
+                          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                        },
+                      ]}
+                      slotProps={{
+                        legend: {
+                          labelStyle: {
+                            fontSize: isSmallScreen ? 10 : 16,
+                          },
+                          itemMarkWidth: isSmallScreen ? 10 : 20,
+                          itemMarkHeight: isSmallScreen ? 10 : 20,
+                        },
+                      }}
+                    />
+                  </Box>
                   <Typography
                     component="p"
                     variant="subtitle2"

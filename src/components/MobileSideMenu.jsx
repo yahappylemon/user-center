@@ -85,7 +85,7 @@ export default function MobileSideMenu() {
             <User
               display={{
                 display: "none",
-                "@media (max-width:700px)": {
+                "@media (min-width: 250px) and (max-width:700px)": {
                   display: "flex",
                 },
               }}
