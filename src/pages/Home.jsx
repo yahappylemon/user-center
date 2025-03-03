@@ -28,6 +28,7 @@ export default function Home() {
       setGender(resGender.data.data);
       setApproach(resApproach.data.data);
       setFirstLesson(resFirstLesson.data.data);
+      console.log(resApproach.data.data);
     }
     getStatistics();
   }, []);
