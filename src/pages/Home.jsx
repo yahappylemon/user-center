@@ -26,8 +26,6 @@ export default function Home() {
       const resApproach = await getCustomerStatisticsAPI("approach");
       const resFirstLesson = await getCustomerStatisticsAPI("firstLesson");
       console.log(resApproach);
-      console.log(resApproach.data);
-      console.log(resApproach.data.data);
       setGender(resGender.data.data);
       setApproach(resApproach.data.data);
       setFirstLesson(resFirstLesson.data.data);
