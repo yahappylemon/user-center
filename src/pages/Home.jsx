@@ -25,7 +25,7 @@ export default function Home() {
       const resGender = await getCustomerStatisticsAPI("gender");
       const resApproach = await getCustomerStatisticsAPI("approach");
       const resFirstLesson = await getCustomerStatisticsAPI("firstLesson");
-      console.log(resApproach);
+      // console.log(resApproach);
       setGender(resGender.data.data);
       setApproach(resApproach.data.data);
       setFirstLesson(resFirstLesson.data.data);
@@ -127,19 +127,19 @@ export default function Home() {
                       series={[
                         {
                           id: 0,
-                          data: [approach["網路社群"]],
+                          data: [approach?.[0]],
                           label: "Social media",
                           color: `${theme.palette.secondary.light}`,
                         },
                         {
                           id: 1,
-                          data: [approach["親友介紹"]],
+                          data: [approach?.[1]],
                           label: "Referral by friend/family",
                           color: `${theme.palette.secondary.dark}`,
                         },
                         {
                           id: 2,
-                          data: [approach["其他"]],
+                          data: [approach?.[2]],
                           label: "Other",
                           color: `${theme.palette.secondary.contrastText}`,
                         },
