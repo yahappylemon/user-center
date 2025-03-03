@@ -15,11 +15,11 @@ export default defineConfig(({ command }) => {
     },
     define: {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      // "process.env.API_URL": JSON.stringify(
-      //   process.env.NODE_ENV === "production"
-      //     ? "https://13.208.246.69.nip.io"
-      //     : "http://13.208.246.69/"
-      // ),
+      "process.env.API_URL": JSON.stringify(
+        process.env.NODE_ENV === "production"
+          ? "https://13.208.71.13.nip.io"
+          : "http://13.208.71.13/"
+      ),
     },
   };
 });
