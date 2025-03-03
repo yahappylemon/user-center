@@ -3,7 +3,7 @@ import { getLocalStorage, removeToken } from "./localStorage.js";
 import router from "../router/index.jsx";
 
 const request = axios.create({
-  baseURL: "https://13.208.246.69.nip.io",
+  baseURL: "https://13.208.71.13.nip.io",
   timeout: 5000,
 });
 
