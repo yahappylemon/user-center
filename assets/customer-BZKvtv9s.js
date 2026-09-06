@@ -1,0 +1,1 @@
+import{a as e}from"./index-D0OXieth.js";function t(t){return e.getCustomers(t)}function n(t){return e.getCustomer(t)}function r(t){return e.createCustomer(t)}function i(t){return e.updateCustomer(t)}function a(t){return e.deleteCustomer(t)}function o(t){return e.statistics(t)}export{r as a,n as i,t as n,i as o,o as r,a as t};
