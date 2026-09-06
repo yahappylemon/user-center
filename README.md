@@ -58,6 +58,19 @@ Lint:
 npm run lint
 ```
 
+Tests:
+
+```bash
+npm run test:unit
+npm run test:e2e
+```
+
+Run all checks:
+
+```bash
+npm run check
+```
+
 Security audit:
 
 ```bash
