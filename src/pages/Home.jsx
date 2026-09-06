@@ -17,18 +17,40 @@ export default function Home() {
   const [gender, setGender] = useState();
   const [approach, setApproach] = useState();
   const [firstLesson, setFirstLesson] = useState();
+  const [error, setError] = useState("");
   const isSmallScreen = useMediaQuery(`(max-width:${500}px)`);
+  const firstLessonSeries = firstLesson
+    ? Object.entries(firstLesson)
+        .sort(([yearA], [yearB]) => Number(yearA) - Number(yearB))
+        .map(([year, data], index) => ({
+          data,
+          label: year,
+          color:
+            [
+              theme.palette.secondary.light,
+              theme.palette.secondary.dark,
+              theme.palette.secondary.contrastText,
+              theme.palette.primary.main,
+            ][index % 4],
+        }))
+    : [];
 
   // 獲取統計數據
   useEffect(() => {
     async function getStatistics() {
-      const resGender = await getCustomerStatisticsAPI("gender");
-      const resApproach = await getCustomerStatisticsAPI("approach");
-      const resFirstLesson = await getCustomerStatisticsAPI("firstLesson");
-      // console.log(resApproach);
-      setGender(resGender.data.data);
-      setApproach(resApproach.data.data);
-      setFirstLesson(resFirstLesson.data.data);
+      try {
+        const resGender = await getCustomerStatisticsAPI("gender");
+        const resApproach = await getCustomerStatisticsAPI("approach");
+        const resFirstLesson = await getCustomerStatisticsAPI("firstLesson");
+        setGender(resGender.data.data);
+        setApproach(resApproach.data.data);
+        setFirstLesson(resFirstLesson.data.data);
+      } catch {
+        setGender([0, 0]);
+        setApproach([0, 0, 0]);
+        setFirstLesson({});
+        setError("Unable to load statistics. Please try again later.");
+      }
     }
     getStatistics();
   }, []);
@@ -38,6 +60,11 @@ export default function Home() {
         <Typography variant="h5" component="h1">
           Home
         </Typography>
+        {error && (
+          <Typography color="error" variant="body2">
+            {error}
+          </Typography>
+        )}
         <Grid container rowSpacing={1} columnSpacing={4}>
           {/* 客戶性別統計 */}
           <Grid size={{ xs: 12, lg: 6 }}>
@@ -190,18 +217,7 @@ export default function Home() {
                   >
                     <LineChart
                       height={250}
-                      series={[
-                        {
-                          data: firstLesson[2023],
-                          label: "2023",
-                          color: `${theme.palette.secondary.light}`,
-                        },
-                        {
-                          data: firstLesson[2024],
-                          label: "2024",
-                          color: `${theme.palette.secondary.dark}`,
-                        },
-                      ]}
+                      series={firstLessonSeries}
                       xAxis={[
                         {
                           scaleType: "point",

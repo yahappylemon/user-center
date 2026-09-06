@@ -17,6 +17,8 @@ import { setTheme } from "../store/theme";
 import { palette } from "../utils/palette";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { isDemoMode } from "../config/apiMode";
+import { demoAPI } from "../apis/demoStore";
 
 export default function UserCenter() {
   const dispatch = useDispatch();
@@ -35,11 +37,16 @@ export default function UserCenter() {
     email: "",
     username: "",
   });
+  const [statusMessage, setStatusMessage] = useState("");
+
   useEffect(() => {
     async function getCurrentUserInfo() {
-      const res = await userInfoAPI();
-      // console.log(res.data);
-      setFormValue(res.data.data);
+      try {
+        const res = await userInfoAPI();
+        setFormValue(res.data.data);
+      } catch {
+        setStatusMessage("Unable to load user info. Please try again later.");
+      }
     }
     getCurrentUserInfo();
   }, []);
@@ -51,6 +58,7 @@ export default function UserCenter() {
       ...formValue,
       [name]: value,
     }));
+    setStatusMessage("");
     // 當用戶正在輸入該欄位時，不顯示錯誤狀態
     setError(() => ({
       ...error,
@@ -98,12 +106,22 @@ export default function UserCenter() {
     }
   }
 
+  function handleResetDemoData() {
+    demoAPI.reset();
+    setStatusMessage("Demo data has been reset.");
+  }
+
   return (
     <Wrapper>
       <NewCard sx={{ width: "100%" }}>
         <Typography variant="h5" component="h1">
           User Center
         </Typography>
+        {statusMessage && (
+          <Typography variant="body2" color="primary.contrastText">
+            {statusMessage}
+          </Typography>
+        )}
         <Grid
           component="form"
           onSubmit={handleRegister}
@@ -213,6 +231,11 @@ export default function UserCenter() {
             </Grid>
           ))}
         </Grid>
+        {isDemoMode && (
+          <Button variant="outlined" onClick={handleResetDemoData}>
+            Reset Demo Data
+          </Button>
+        )}
       </NewCard>
     </Wrapper>
   );

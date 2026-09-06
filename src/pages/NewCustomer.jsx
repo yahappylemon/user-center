@@ -40,6 +40,7 @@ export default function NewCustomer() {
     firstLesson: false,
   });
   const [emailError, setEmailError] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   // 表單預設值
   const [formValue, setFormValue] = useState(initialState);
@@ -65,7 +66,7 @@ export default function NewCustomer() {
         });
         const customerData = res.data.data;
         setFormValue({
-          ...formValue,
+          ...initialState,
           ...customerData,
           birthYear:
             customerData.birthYear !== null
@@ -84,6 +85,7 @@ export default function NewCustomer() {
         ) {
           setCurrentCustomer(null);
         }
+        setSubmitError("Unable to load this customer. Please try again later.");
       }
     }
     if (currentCustomer) {
@@ -98,6 +100,7 @@ export default function NewCustomer() {
       ...formValue,
       [name]: value,
     }));
+    setSubmitError("");
     // 若為需要驗證之項目則進行校驗
     if (Object.keys(emptyError).includes(name)) {
       setEmptyError((error) => ({
@@ -116,6 +119,7 @@ export default function NewCustomer() {
       ...formValue,
       [name]: date,
     }));
+    setSubmitError("");
     // 若為需要驗證之項目則進行校驗
     if (Object.keys(emptyError).includes(name)) {
       setEmptyError((error) => ({
@@ -166,23 +170,30 @@ export default function NewCustomer() {
     };
     // 校驗表單
     validateForm(submitValue);
+    const validationResult = {
+      customerName: valueIsNull(submitValue.customerName),
+      gender: valueIsNull(submitValue.gender),
+      firstLesson: valueIsNull(submitValue.firstLesson),
+      email: valueIsEmail(submitValue.email),
+    };
     if (
-      !submitValue.firstLesson ||
-      !submitValue.gender ||
-      !submitValue.customerName ||
-      emailError ||
-      emptyError.customerName ||
-      emptyError.gender ||
-      emptyError.firstLesson
+      validationResult.customerName ||
+      validationResult.gender ||
+      validationResult.firstLesson ||
+      validationResult.email
     ) {
       return;
     } else {
       // 依據是否有當前客戶(edit模式)，判斷傳送方式
-      currentCustomer
-        ? await putCustomerAPI(submitValue)
-        : await postCustomerAPI(submitValue);
-      // 跳轉回客戶頁面
-      navigate("/customer");
+      try {
+        currentCustomer
+          ? await putCustomerAPI(submitValue)
+          : await postCustomerAPI(submitValue);
+        // 跳轉回客戶頁面
+        navigate("/customer");
+      } catch {
+        setSubmitError("Unable to save this customer. Please try again later.");
+      }
     }
   }
 
@@ -193,6 +204,11 @@ export default function NewCustomer() {
         <Typography variant="h5" component="h1">
           {currentCustomer ? "Edit Customer" : "New Customer"}
         </Typography>
+        {submitError && (
+          <Typography color="error" variant="body2">
+            {submitError}
+          </Typography>
+        )}
         <Box
           component="form"
           onSubmit={handleSubmit}

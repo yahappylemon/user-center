@@ -1,9 +1,10 @@
 import axios from "axios";
 import { getLocalStorage, removeToken } from "./localStorage.js";
 import router from "../router/index.jsx";
+import { apiBaseURL } from "../config/apiMode.js";
 
 const request = axios.create({
-  baseURL: "https://13.208.43.217.nip.io",
+  baseURL: apiBaseURL,
   timeout: 5000,
 });
 
@@ -17,7 +18,7 @@ request.interceptors.request.use(
     }
     return config;
   },
-  (config) => {
+  (error) => {
     // Do something with request error
     return Promise.reject(error);
   }

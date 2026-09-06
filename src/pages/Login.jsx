@@ -63,24 +63,28 @@ export default function Login() {
 
   // 校驗表單
   function validateForm(formValue) {
-    setError((error) => ({
-      ...error,
+    const validationResult = {
       userName: hasLengthLimit(formValue.userName, 3, 20),
       userPassword: passwordValidation(formValue.userPassword),
       checkPassword: confirmPassword(
         formValue.userPassword,
         formValue.checkPassword
       ),
+    };
+    setError((error) => ({
+      ...error,
+      ...validationResult,
     }));
+    return validationResult;
   }
 
   // 送出表單(登入模式)
   async function handleLogin(e) {
     e.preventDefault();
     // 校驗表單
-    validateForm(formValue);
+    const validationResult = validateForm(formValue);
     // 依據登入/註冊模式，判斷傳送方式
-    if (error.userName || error.userPassword) {
+    if (validationResult.userName || validationResult.userPassword) {
       return;
     } else {
       try {
@@ -88,15 +92,21 @@ export default function Login() {
         // 跳轉到首頁
         navigate("/");
       } catch (error) {
-        if (error.response.data.message === "用戶不存在") {
+        const message = error?.response?.data?.message;
+        if (message === "用戶不存在") {
           setError((error) => ({
             ...error,
             userNotFound: "Username not Found",
           }));
-        } else if (error.response.data.message === "登入失敗，密碼錯誤") {
+        } else if (message === "登入失敗，密碼錯誤") {
           setError((error) => ({
             ...error,
             incorrectPassword: "Incorrect Password",
+          }));
+        } else {
+          setError((error) => ({
+            ...error,
+            userNotFound: "Unable to sign in. Please try again later.",
           }));
         }
       }
@@ -107,9 +117,13 @@ export default function Login() {
   async function handleRegister(e) {
     e.preventDefault();
     // 校驗表單
-    validateForm(formValue);
+    const validationResult = validateForm(formValue);
     // 依據登入/註冊模式，判斷傳送方式
-    if (error.userName || error.userPassword || error.checkPassword) {
+    if (
+      validationResult.userName ||
+      validationResult.userPassword ||
+      validationResult.checkPassword
+    ) {
       return;
     } else {
       try {
@@ -118,10 +132,16 @@ export default function Login() {
         // 跳轉到登入頁
         navigate("/auth?mode=login");
       } catch (error) {
-        if (error.response.data.message === "已存在相同使用者名稱") {
+        const message = error?.response?.data?.message;
+        if (message === "已存在相同使用者名稱") {
           setError((error) => ({
             ...error,
             usernameExist: `${formValue.userName} is already taken`,
+          }));
+        } else {
+          setError((error) => ({
+            ...error,
+            usernameExist: "Unable to sign up. Please try again later.",
           }));
         }
       }

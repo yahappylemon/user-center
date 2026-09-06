@@ -13,13 +13,5 @@ export default defineConfig(({ command }) => {
         "@mui/styled-engine": "@mui/styled-engine-sc",
       },
     },
-    define: {
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-      "process.env.API_URL": JSON.stringify(
-        process.env.NODE_ENV === "production"
-          ? "https://13.208.43.217.nip.io"
-          : "http://13.208.43.217/"
-      ),
-    },
   };
 });

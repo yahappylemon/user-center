@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Typography,
@@ -34,23 +34,30 @@ export default function Customer() {
   const [total, setTotal] = useState();
   const [page, setPage] = useState(1);
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
   // 獲取客戶
-  async function fetchCustomer() {
-    const res = await getCustomerAPI({
-      pageNum: page,
-      pageSize: 7,
-      customerName: name,
-    });
-    // console.log(res.data.data);
-    setList(res.data.data.items);
-    setTotal(res.data.data.total);
-  }
+  const fetchCustomer = useCallback(async () => {
+    try {
+      setError("");
+      const res = await getCustomerAPI({
+        pageNum: page,
+        pageSize: 7,
+        customerName: name,
+      });
+      setList(res.data.data.items);
+      setTotal(res.data.data.total);
+    } catch {
+      setList([]);
+      setTotal(0);
+      setError("Unable to load customers. Please try again later.");
+    }
+  }, [name, page]);
 
   // 獲取當前客戶列表
   useEffect(() => {
     fetchCustomer();
-  }, [page, name]);
+  }, [fetchCustomer]);
 
   //依據頁碼更新當前客戶列表
   function handlePage(e, value) {
@@ -66,8 +73,12 @@ export default function Customer() {
   // 刪除用戶資料
   async function handleDelete(e) {
     const id = e.currentTarget.dataset.id;
-    await deleteCustomerAPI({ id });
-    await fetchCustomer();
+    try {
+      await deleteCustomerAPI({ id });
+      await fetchCustomer();
+    } catch {
+      setError("Unable to delete this customer. Please try again later.");
+    }
   }
 
   // 篩濾用戶運動習慣資訊
@@ -129,6 +140,11 @@ export default function Customer() {
           </Box>
           {/* 用戶資訊列表 */}
         </Box>
+        {error && (
+          <Typography color="error" variant="body2">
+            {error}
+          </Typography>
+        )}
         {!list ? (
           <CircularProgress sx={{ alignSelf: "center" }} />
         ) : (

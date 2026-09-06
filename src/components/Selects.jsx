@@ -28,7 +28,6 @@ export default function Selects({
   onChangeFn,
   otherId,
   otherLabel,
-  ...props
 }) {
   return (
     <>

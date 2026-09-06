@@ -9,10 +9,10 @@ export default function Inputs({ id, label, type, style, value, ...props }) {
       placeholder={label}
       type={type}
       variant="standard"
-      sx={(theme) => ({
+      sx={{
         width: "100%",
         ...style,
-      })}
+      }}
       value={value[id]}
       {...props}
     />
