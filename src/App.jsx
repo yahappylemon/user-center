@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./router/index";
 import { GlobalStyles } from "@mui/material";
-import { ThemeProvider, createTheme, useTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useSelector } from "react-redux";
 import { palette } from "../src/utils/palette";
